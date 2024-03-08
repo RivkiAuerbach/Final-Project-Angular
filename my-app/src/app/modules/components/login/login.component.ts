@@ -1,41 +1,8 @@
-// import { Component } from '@angular/core';
-// import { Router } from '@angular/router';
-// import { CourseService } from '../../services/user.service';
-
-// @Component({
-//   selector: 'app-login',
-//   templateUrl: './login.component.html',
-//   styleUrls: ['./login.component.css']
-// })
-// export class LoginComponent {
-//   username: string = '';
-//   password: string = '';
-//   errorMessage: string = '';
-
-//   constructor(private authService: CourseService, private router: Router) {}
-
-//   login() {
-//     this.authService.authenticate(this.username, this.password)
-//       .subscribe(
-//         (authenticated) => {
-//           if (authenticated) {
-//             // התחברות מוצלחת - מעבר לדף משתמש
-//             this.router.navigate(['/allCourses']);
-//           } else {
-//             // התחברות נכשלה - הצגת הודעת שגיאה
-//             this.errorMessage = 'Invalid username or password. Please try again.';
-//           }
-//         }
-//       );
-//   }
-// }
-
-
 
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersService } from '../../services/user.service';
-
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -46,12 +13,20 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
+  private users: User[] = [];
+  showCourseInput: boolean = false;
 
-  constructor(private userService: UsersService, private router: Router) {}
+  constructor(private _userService: UsersService, private router: Router) {
+  
+    //server
+    _userService.getUserFromServer().subscribe(data => {
+      this.users = data;
+    })
+  }
 
   login() {
-    if (this.userService.userExists(this.username)) {
-      if (this.userService.validatePassword(this.username, this.password)) {
+    if (this.userExists(this.username)) {
+      if (this.validatePassword(this.username, this.password)) {
         // Successful login - navigate to AllCoursesComponent
         this.router.navigate(['/allCourses']);
       } else {
@@ -62,6 +37,38 @@ export class LoginComponent {
       // User does not exist - navigate to RegisterComponent
       this.router.navigate(['/register'],{ queryParams: { userName: this.username } });
     }
+  }
+ 
+  hasSameUser(user: User): boolean {
+    return this.users.some(u => 
+      u.name === user.name && 
+      u.address === user.address && 
+      u.mail === user.mail && 
+      u.password === user.password
+    );
+  }
+  // Method to check if a user already exists
+  userExists(username: string): boolean {
+    return this.users.some(u => u.name === username);
+  }
+
+  // Method to check if the password is correct for the user
+  validatePassword(username: string, password: string): boolean {
+    const user = this.users.find(u => u.name === username);
+    return user ? user.password === password : false;
+  }
+
+  // Method to add a new user
+  addUser(user: User): void {
+    this.users.push(user);
+    this._userService.postUserToServer(this.users).subscribe(data=>{
+      if(data)
+      alert("save success")
+     });
+
+  }
+  toggleCourseInput() {
+    this.showCourseInput = !this.showCourseInput;
   }
 }
 
