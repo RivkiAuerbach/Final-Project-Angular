@@ -4,22 +4,22 @@ enum LearningMode {
 }
 
 export class Course {
-    code: string;
+    code: number;
     name: string;
     categoryCode: string;
-    lessonCount: number;
-    startDate: Date;
+    lessonCount: string;
+    startDate: string;
     syllabus: string[];
     learningMode: LearningMode;
     instructorCode: string;
     image: string;
 
     constructor(
-        code: string,
+        code: number,
         name: string,
         categoryCode: string,
-        lessonCount: number,
-        startDate: Date,
+        lessonCount: string,
+        startDate: string,
         syllabus: string[],
         learningMode: LearningMode,
         instructorCode: string,

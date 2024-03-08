@@ -57,7 +57,11 @@ namespace my_app_server.Controllers
         {
             userList = user;
         }
-
+        //public IActionResult Post([FromBody] User user)
+        //{
+        //    userList.Add(user);
+        //    return Ok();
+        //}
         // PUT api/<user>/5
         [HttpPut("{id}")]
         public void Put(int code, [FromBody] User user)
