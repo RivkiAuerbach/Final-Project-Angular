@@ -16,6 +16,7 @@ getUserFromServer():Observable<User[]>
 {
    return this._http.get<User[]>("/api/User");
 }
+
 //server
 postUserToServer(user:User[]): Observable<boolean>
 {   

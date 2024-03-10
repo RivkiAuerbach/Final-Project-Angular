@@ -1,1 +1,52 @@
-<p>add-course works!</p>
+<div class="container">
+    <h2>Add Course</h2>
+    <div class="form-group">
+      <label for="code">Code:</label>
+      <input type="text" class="form-control" [(ngModel)]="course.code" name="code" id="code" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" [(ngModel)]="course.name" name="name" id="name" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="categoryCode">Category Code:</label>
+      <input type="text" class="form-control" [(ngModel)]="course.categoryCode" name="categoryCode" id="categoryCode" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="lessonCount">Lesson Count:</label>
+      <input type="text" class="form-control" [(ngModel)]="course.lessonCount" name="lessonCount" id="lessonCount" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="startDate">Start Date:</label>
+      <input type="date" class="form-control" [(ngModel)]="course.startDate" name="startDate" id="startDate" required>
+    </div>
+  
+    <div *ngFor="let syllabusItem of course.syllabus; let i = index" class="form-group">
+      <label for="syllabus">Syllabus:</label>
+      <input type="text" class="form-control" [(ngModel)]="course.syllabus[i]" name="syllabus" id="syllabus" required>
+      <button type="button" class="btn btn-danger" (click)="removeSyllabusItem(i)">Remove</button>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="addSyllabusItem()">Add Syllabus Item</button>
+  
+    <div class="form-group">
+      <label for="learningMode">Learning Mode:</label>
+      <input type="text" class="form-control" [(ngModel)]="course.learningMode" name="learningMode" id="learningMode" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="instructorCode">Instructor Code:</label>
+      <input type="text" class="form-control" [(ngModel)]="course.instructorCode" name="instructorCode" id="instructorCode" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="image">Image:</label>
+      <input type="text" class="form-control" [(ngModel)]="course.image" name="image" id="image" required>
+    </div>
+  <br>
+    <button type="button" class="btn btn-success" (click)="saveCourse()">Save Course</button>
+  </div>
+  

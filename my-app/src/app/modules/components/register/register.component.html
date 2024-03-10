@@ -1,19 +1,29 @@
-<div>
+
+  <div class="container">
     <h2>Register</h2>
-    <div *ngIf="existingUserMessage" class="error-message">{{ existingUserMessage }}</div>
-    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+    <div *ngIf="existingUserMessage" class="alert alert-danger">{{ existingUserMessage }}</div>
+    <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
   
-    <label>Name:</label>
-    <input type="text" [(ngModel)]="newUser.name" [value]="newUser.name" name="name"><br>
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" [(ngModel)]="newUser.name" name="name">
+    </div>
   
-    <label>Address:</label>
-    <input type="text" [(ngModel)]="newUser.address" name="address"><br>
+    <div class="form-group">
+      <label for="address">Address:</label>
+      <input type="text" class="form-control" id="address" [(ngModel)]="newUser.address" name="address">
+    </div>
   
-    <label>Email:</label>
-    <input type="email" [(ngModel)]="newUser.mail" name="mail"><br>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" [(ngModel)]="newUser.mail" name="mail">
+    </div>
   
-    <label>Password:</label>
-    <input type="password" [(ngModel)]="newUser.password" name="password"><br>
-  
-    <button (click)="registerUser()"   class="btn btn-success" >Register</button>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" class="form-control" id="password" [(ngModel)]="newUser.password" name="password">
+    </div>
+  <br>
+    <button (click)="registerUser()" class="btn btn-success">Register</button>
   </div>
+  

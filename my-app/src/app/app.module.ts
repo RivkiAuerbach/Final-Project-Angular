@@ -8,8 +8,9 @@ import { LoginComponent } from './modules/components/login/login.component';
 import { AllCoursesComponent } from './modules/components/all-courses/all-courses.component';
 import { RegisterComponent } from './modules/components/register/register.component';
 import { AddCourseComponent } from './modules/components/add-course/add-course.component';
-import { HttpClientModule } from '@angular/common/http'; 
-
+import { HttpClientModule } from '@angular/common/http';
+import { LogoutComponent } from './modules/components/logout/logout.component';
+import { CourseDetailsComponent } from './modules/components/course-details/course-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,6 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
     AllCoursesComponent,
     RegisterComponent,
     AddCourseComponent,
+    LogoutComponent,
+    CourseDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,10 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule.forRoot([
       { path: 'login', component: LoginComponent },
       { path: 'allCourses', component: AllCoursesComponent },
-      {path:'register',component:RegisterComponent}
+      { path: 'addCourse', component: AddCourseComponent },
+      {path:'register',component:RegisterComponent},
+      {path:'logout',component:LogoutComponent}
+
 
       // ניתן להוסיף נתיבים נוספים כרצונך
     ])

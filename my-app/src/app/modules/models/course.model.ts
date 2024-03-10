@@ -1,6 +1,6 @@
-enum LearningMode {
-    Frontal = 'פרונטלי',
-    Zoom = 'זום'
+export enum LearningMode {
+    Frontal ,
+    Zoom 
 }
 
 export class Course {
