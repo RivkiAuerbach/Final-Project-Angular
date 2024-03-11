@@ -11,6 +11,7 @@ import { AddCourseComponent } from './modules/components/add-course/add-course.c
 import { HttpClientModule } from '@angular/common/http';
 import { LogoutComponent } from './modules/components/logout/logout.component';
 import { CourseDetailsComponent } from './modules/components/course-details/course-details.component';
+import { EditCourseComponent } from './modules/components/edit-course/edit-course.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,8 @@ import { CourseDetailsComponent } from './modules/components/course-details/cour
     RegisterComponent,
     AddCourseComponent,
     LogoutComponent,
-    CourseDetailsComponent
+    CourseDetailsComponent,
+    EditCourseComponent
   ],
   imports: [
     BrowserModule,

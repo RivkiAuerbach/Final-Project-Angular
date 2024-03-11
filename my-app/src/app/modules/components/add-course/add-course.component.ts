@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Category } from '../../models/category.model';
 import { Course, LearningMode } from '../../models/course.model';
 import { CourseService } from '../../services/course.service';
 
@@ -13,13 +14,13 @@ export class AddCourseComponent {
   successMessage: string | undefined;
 
   constructor(private _courseService: CourseService) {
-    this.course = new Course(0, '', '', '', '', [], LearningMode.Frontal, '', '');
+    this.course = new Course(0, '',  new Category('', '', ''), '', '', [], LearningMode.Frontal, '', '');
   }
 
   saveCourse() {
     // Implement save course logic here
     if (this.course.name !== '' &&
-        this.course.categoryCode !== '' &&
+        this.course.category.name !== '' &&
         this.course.lessonCount !== '' &&
         this.course.startDate !== '' &&
         this.course.syllabus.length > 0 &&

@@ -1,3 +1,5 @@
+import { Category } from "./category.model";
+
 export enum LearningMode {
     Frontal ,
     Zoom 
@@ -6,7 +8,7 @@ export enum LearningMode {
 export class Course {
     code: number;
     name: string;
-    categoryCode: string;
+    category: Category;
     lessonCount: string;
     startDate: string;
     syllabus: string[];
@@ -17,7 +19,7 @@ export class Course {
     constructor(
         code: number,
         name: string,
-        categoryCode: string,
+        category: Category,
         lessonCount: string,
         startDate: string,
         syllabus: string[],
@@ -27,7 +29,7 @@ export class Course {
     ) {
         this.code = code;
         this.name = name;
-        this.categoryCode = categoryCode;
+        this.category = category;
         this.lessonCount = lessonCount;
         this.startDate = startDate;
         this.syllabus = syllabus;
