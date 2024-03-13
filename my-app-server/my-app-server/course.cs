@@ -46,7 +46,7 @@ namespace my_app_server
         public int Code { get; set; }
         public string Name { get; set; }
         public Category Category { get; set; }
-        public string LessonCount { get; set; }
+        public int LessonCount { get; set; }
         public DateTime StartDate { get; set; }
         public List<string> Syllabus { get; set; }
         public LearningMode LearningMode { get; set; }

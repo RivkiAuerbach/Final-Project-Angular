@@ -5,11 +5,12 @@ export enum LearningMode {
     Zoom 
 }
 
+
 export class Course {
     code: number;
     name: string;
     category: Category;
-    lessonCount: string;
+    lessonCount:number;
     startDate: string;
     syllabus: string[];
     learningMode: LearningMode;
@@ -20,7 +21,7 @@ export class Course {
         code: number,
         name: string,
         category: Category,
-        lessonCount: string,
+        lessonCount: number,
         startDate: string,
         syllabus: string[],
         learningMode: LearningMode,

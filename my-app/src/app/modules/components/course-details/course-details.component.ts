@@ -1,5 +1,5 @@
 import { Component ,  Input, OnInit, NgModule, Output, EventEmitter} from '@angular/core';
-import { Course } from '../../models/course.model';
+import { Course,LearningMode } from '../../models/course.model';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '../../services/course.service';
@@ -23,15 +23,10 @@ export class CourseDetailsComponent implements OnInit {
  
     this.showCourseDetails = !this.showCourseDetails; 
   }
-
   showEditComponent() {
     this.editCourse = !this.editCourse;
   }
-  // isDateInNextWeek(startDate: Date): boolean {
-  //   const now = new Date();
-  //   const nextWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7);
-  //   return startDate >= now && startDate <= nextWeek;
-  // }
+ 
   isDateInNextWeek(startDate: string): boolean {
     const startDateAsDate = new Date(startDate);
     const now = new Date();
@@ -52,6 +47,13 @@ handleFocus()
     this.OnFocusCourse.emit();
     this.focusCourse = true;
   }
+}
+isFrontalMode(learningMode: LearningMode): boolean {
+  return learningMode === LearningMode.Frontal;
+}
+
+isZoomMode(learningMode: LearningMode): boolean {
+  return learningMode === LearningMode.Zoom;
 }
   ngOnInit(): void {
 

@@ -128,3 +128,13 @@
     justify-content: flex-end;
     gap: 10px; /* Adjust the space between buttons as needed */
   }
+  .card-img-top {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* מתאים את גודל התמונה כך שהיא תמלא את כל המסגרת */
+  }
+  .pink-highlight {
+    background-color: #ff69b4; /* גוון ורוד סגול */
+    color: #ffffff; /* צבע טקסט לבן */
+  }
+  

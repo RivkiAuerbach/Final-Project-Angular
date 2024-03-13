@@ -12,6 +12,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { LogoutComponent } from './modules/components/logout/logout.component';
 import { CourseDetailsComponent } from './modules/components/course-details/course-details.component';
 import { EditCourseComponent } from './modules/components/edit-course/edit-course.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,16 +33,19 @@ import { EditCourseComponent } from './modules/components/edit-course/edit-cours
     HttpClientModule,
     BrowserModule,
     FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
     RouterModule.forRoot([
       { path: 'login', component: LoginComponent },
       { path: 'allCourses', component: AllCoursesComponent },
       { path: 'addCourse', component: AddCourseComponent },
       {path:'register',component:RegisterComponent},
-      {path:'logout',component:LogoutComponent}
-
-
+      {path:'logout',component:LogoutComponent},
+      // {path:'courseDetails/:code',component:CourseDetailsComponent}
       // ניתן להוסיף נתיבים נוספים כרצונך
-    ])
+    ]),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

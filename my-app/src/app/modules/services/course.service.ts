@@ -26,9 +26,26 @@ export class CourseService {
   );
 }
  //server
- postCourseToServer(course:Course[]): Observable<boolean>
- {   
-   return this._http.post<boolean>("/api/Course/" ,course);
- }
+ addCourseToServer(course: Course): Observable<Course> {
+  //  console.log(course);
+  // course = {
+  //   "code": 0,
+  //   "name": "string",
+  //   "category": {
+  //     "code": 0,
+  //     "name": "string",
+  //     "iconRoute": "string"
+  //   },
+  //   "lessonCount": 0,
+  //   "startDate": "2024-03-13T21:25:33.607Z",
+  //   "syllabus": [
+  //     "string"
+  //   ],
+  //   "learningMode": 0,
+  //   "instructorCode": "string",
+  //   "image": "string"
+  // } 
+  return this._http.post<Course>("/api/Course/", course);
+}
 
 }

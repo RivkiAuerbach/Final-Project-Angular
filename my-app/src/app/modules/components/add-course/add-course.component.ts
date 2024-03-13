@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
-import { Category } from '../../models/category.model';
+
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Course, LearningMode } from '../../models/course.model';
 import { CourseService } from '../../services/course.service';
-
+import { Router } from '@angular/router';
+import { Category } from '../../models/category.model';
+import { NgModel } from '@angular/forms';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
@@ -10,26 +13,116 @@ import { CourseService } from '../../services/course.service';
 })
 export class AddCourseComponent {
   course: Course;
-  private courses: Course[] = [];
   successMessage: string | undefined;
+  categories: Category[] = [
+    new Category(1, 'web', 'icon1.png'),
+    new Category(2, 'hardware', 'icon2.png'),
+  ];
 
-  constructor(private _courseService: CourseService) {
-    this.course = new Course(0, '',  new Category('', '', ''), '', '', [], LearningMode.Frontal, '', '');
+  selectedCategory: Category;
+  constructor(private _courseService: CourseService, private router: Router) {
+    this.course = new Course(0, '', new Category(), 0, null, [], LearningMode.Frontal, '', '');
   }
 
-  saveCourse() {
-    // Implement save course logic here
-    if (this.course.name !== '' &&
-        this.course.category.name !== '' &&
-        this.course.lessonCount !== '' &&
-        this.course.startDate !== '' &&
-        this.course.syllabus.length > 0 &&
-        this.course.instructorCode !== '' &&
-        this.course.image !== '' &&
-        this.course.learningMode !== null) {
-        this.addCourse(this.course);
-        this.successMessage = 'Registration successful!';
+  @Output() finishEditing: EventEmitter<void> = new EventEmitter<void>();
+  inputString: string = '';
+  stringList: string[] = [];
+  selectedLearningMode: string;
+
+  saveCategory() {
+    if (this.selectedCategory) {
+      // Display SweetAlert message
+      Swal.fire({
+        icon: 'success',
+        title: 'Saved Successfully',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    } else {
+      // Display error message if no category is selected
+      Swal.fire({
+        icon: 'error',
+        title: 'Please select a category first',
+        showConfirmButton: false,
+        timer: 1500
+      });
     }
+  }
+  addString() {
+    if (this.inputString.trim() !== '') {
+      const strings = this.inputString.split(/[,\n]/);
+      for (const str of strings) {
+        const trimmedStr = str.trim();
+        if (trimmedStr !== '') {
+          this.stringList.push();
+          this.course.syllabus.push(trimmedStr);
+        }
+      }
+      this.inputString = '';
+    }
+  }
+
+  cancel() {
+    this.finish();
+    this.router.navigate(['/allCourses']);
+  }
+
+  // saveCourse() {
+  //   this.course.category.code = this.selectedCategory.code;
+  //   this.course.category.name =this.selectedCategory.name;
+  //   this.course.category.iconRoute=this.selectedCategory.iconRoute;
+  //   this.course.learningMode = this.selectedLearningMode === 'Frontal' ? LearningMode.Frontal : LearningMode.Zoom;
+  //     this._courseService.addCourseToServer(this.course).subscribe(data=>{
+  //       if(data)
+  //       alert("save success")
+  //      }); 
+  // }
+  saveCourse() {
+    const courseData = {
+      code: this.course.code,
+      name: this.course.name,
+      category: {
+        code: this.selectedCategory.code,
+        name: this.selectedCategory.name,
+        iconRoute: this.selectedCategory.iconRoute
+      },
+      lessonCount: this.course.lessonCount,
+      startDate: this.course.startDate,
+      syllabus: this.course.syllabus,
+      learningMode: this.selectedLearningMode === 'Frontal' ? LearningMode.Frontal : LearningMode.Zoom,
+      instructorCode: this.course.instructorCode,
+      image: this.course.image
+    };
+  
+    this._courseService.addCourseToServer(courseData).subscribe(data => {
+      if (data) {
+        alert("save success");
+      }
+    });
+  }
+  
+  isValidCourse(course: Course): boolean {
+    return (
+      course &&
+      course.name &&
+      course.name.trim() !== '' &&
+      course.category &&
+      course.category.code >= 1 && // Check for category code
+      // course.lessonCount !== undefined &&
+      course.lessonCount >= 1 && // Check for lesson count
+      course.startDate && // You can add date validation here
+      course.syllabus &&
+      course.syllabus.length > 0 &&
+      course.instructorCode &&
+      course.instructorCode.trim() !== '' &&
+      course.image &&
+      course.image.trim() !== '' &&
+      course.learningMode !== undefined
+    );
+  }
+
+  finish() {
+    this.finishEditing.emit();
   }
 
   addSyllabusItem() {
@@ -38,16 +131,5 @@ export class AddCourseComponent {
 
   removeSyllabusItem(index: number) {
     this.course.syllabus.splice(index, 1);
-  }
-
-
-   // Method to add a new course
-   addCourse(course: Course): void {
-    this.courses.push(course);
-    this._courseService.postCourseToServer(this.courses).subscribe(data=>{
-      if(data)
-      alert("save success")
-     });
-
   }
 }

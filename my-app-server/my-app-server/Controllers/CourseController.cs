@@ -133,7 +133,7 @@ namespace my_app_server.Controllers
                Code=1,
                Name="Angular",
                Category=new Category{Code = 1,IconRoute= "Angular.png" ,Name ="web"},
-               LessonCount="35",
+               LessonCount=35,
                StartDate = new DateTime(2024, 1, 1, 0, 0, 0),
                Syllabus = new List<string>
                {
@@ -142,7 +142,7 @@ namespace my_app_server.Controllers
                 "bootstrap",
                 "Router"
                },
-               LearningMode=0,
+               LearningMode=LearningMode.Frontal,
                InstructorCode="7894",
                Image="Angular.jpg"
           },
@@ -150,9 +150,9 @@ namespace my_app_server.Controllers
           {
                Code=2,
                Name="React",
-              Category=new Category{Code = 2,IconRoute= "React.png" ,Name ="web"},
-               LessonCount="28",
-               StartDate=new DateTime(2024, 1, 1, 0, 0, 0),
+               Category=new Category{Code = 2,IconRoute= "React.png" ,Name ="web"},
+               LessonCount=28,
+               StartDate=new DateTime(2024, 3, 15, 0, 0, 0),
                Syllabus = new List<string>
                {
                 "observable",
@@ -160,7 +160,7 @@ namespace my_app_server.Controllers
                 "hooks",
                 "MOBX"
                },
-               LearningMode=0,
+               LearningMode=LearningMode.Zoom,
                InstructorCode="7894",
                Image="React.jpg"
           },
@@ -168,8 +168,8 @@ namespace my_app_server.Controllers
           {
                Code=3,
                Name="innovation",
-               Category=new Category{Code = 3,IconRoute= "Innovation.png" ,Name ="web"},
-               LessonCount="12",
+               Category=new Category{Code = 3,IconRoute= "Innovation.png" ,Name ="technologies"},
+               LessonCount=12,
                StartDate=new DateTime(2024, 3, 11, 0, 0, 0),
                Syllabus = new List<string>
                {
@@ -178,7 +178,7 @@ namespace my_app_server.Controllers
                 "AWS",
                 "Google Cloud"
                },
-               LearningMode=0,
+               LearningMode=LearningMode.Frontal,
                InstructorCode="4586",
                Image="Innovation.jpg"
           }
@@ -202,10 +202,15 @@ namespace my_app_server.Controllers
 
         // POST api/<CourseController>
         [HttpPost]
-        public void Post([FromBody] List<Course> course)
+        //public void Post([FromBody] List<Course> course)
+        //{
+        //    courseList = course;
+        //}
+        public void Post([FromBody] Course course)
         {
-            courseList = course;
+            courseList.Add(course);
         }
+
 
         // PUT api/<CourseController>/5
         [HttpPut]
