@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
   successMessage: string;
   private users: User[] = [];
   constructor( private router: Router,private route: ActivatedRoute, private _userService: UsersService) {
-    this.newUser = new User(0, '', '', '', '');
+    this.newUser = new User(0, '', '', '', '', false); 
     this.existingUserMessage = '';
     this.successMessage = '';
 
@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
       this.addUser(this.newUser);
       this.successMessage = 'Registration successful!';
       // You can also clear the input fields after successful registration
-      this.newUser = new User(0, '', '', '', '');
+      this.newUser = new User(0, '', '', '', '', false); 
        // Redirect to all courses after 3 seconds
       setTimeout(() => {
         this.router.navigate(['/allCourses']);
@@ -81,6 +81,8 @@ export class RegisterComponent implements OnInit {
       if(data)
       alert("save success")
      });
+     sessionStorage.setItem('username',user.name);
+     sessionStorage.setItem('password',user.password);
 
   }
 }

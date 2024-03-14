@@ -40,12 +40,18 @@ export class LoginComponent {
   }
  
   hasSameUser(user: User): boolean {
-    return this.users.some(u => 
+   if(this.users.some(u => 
       u.name === user.name && 
-      u.address === user.address && 
-      u.mail === user.mail && 
+      // u.address === user.address && 
+      // u.mail === user.mail && 
       u.password === user.password
-    );
+    ))
+    {
+      sessionStorage.setItem('username',user.name);
+     sessionStorage.setItem('password',user.password);
+     return true;
+    }
+    return false;
   }
   // Method to check if a user already exists
   userExists(username: string): boolean {
@@ -65,6 +71,7 @@ export class LoginComponent {
       if(data)
       alert("save success")
      });
+   
 
   }
   toggleCourseInput() {

@@ -7,5 +7,6 @@
         public string Address { get; set; }
         public string mail { get; set; }
         public string Password { get; set; }
+        public bool isInstructor { get; set; }
     }
 }

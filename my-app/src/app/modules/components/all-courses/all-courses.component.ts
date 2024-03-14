@@ -94,29 +94,26 @@ getLearningModeFromString(searchText: string): LearningMode | string {
 }
 
 
-// handleCategoryChange(event: any) {
-//   const selectedCategory = event.value;
-//   if (!selectedCategory) {
-//     this.filteredCourses = this.courses;
-//     return;
-//   }
-//   this.filteredCourses = this.courses.filter(course =>
-//     course.category.name.toLowerCase().includes(selectedCategory.toLowerCase())
-//   );
-// }
+handleCategoryChange(event: any) {
+  const selectedCategory = event.value;
+  if (!selectedCategory) {
+    this.filteredCourses = this.courses;
+    return;
+  }
+  this.filteredCourses = this.courses.filter(course =>
+    course.category.name.toLowerCase().includes(selectedCategory.toLowerCase())
+  );
+}
 
-// getUniqueCategories(): Category[] {
-//   const categories: Category[] = [];
-//   this.courses.forEach(course => {
-//     if (!categories.some(cat => cat.name === course.category.name)) {
-//       categories.push(course.category);
-//     }
-//   });
-//   return categories;
-// }
-
-
-
+getUniqueCategories(): Category[] {
+  const categories: Category[] = [];
+  this.courses.forEach(course => {
+    if (!categories.some(cat => cat.name === course.category.name)) {
+      categories.push(course.category);
+    }
+  });
+  return categories;
 }
 
 
+}

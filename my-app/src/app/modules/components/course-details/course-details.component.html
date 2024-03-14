@@ -1,7 +1,6 @@
 
-<div *ngIf="showCourseDetails" class="overlay" (click)="toggleCourseDetails()"></div> <!-- Full-page overlay -->
+  <div *ngIf="showCourseDetails" class="overlay" (click)="toggleCourseDetails()"></div> 
 <div *ngIf="course" class="course-details">
-  <!-- <div class="course-image" [style.backgroundImage]="'url(assets/cat4.jpg)'"> -->
     <div class="course-image" [style.backgroundImage]="'url(assets/' + course.image + ')'">
      <div class="course-name" [class.focused]="focusCourse" (focus)="handleFocus()" (click)="toggleCourseDetails()">{{ course?.name }}</div>
   </div>
@@ -63,11 +62,14 @@
   </div>
   <div class="button-container">
     <img src="assets/cancel.png" alt="Cancel" class="button-image icon" (click)="toggleCourseDetails()">
-    <img src="assets/Edit.png" alt="Edit" class="button-image icon" (click)="showEditComponent()">
+    <img src="assets/Edit.png" alt="Edit"  *ngIf="check()" class="button-image icon" (click)="showEditComponent()">
   </div>
   </div>
   <app-edit-course *ngIf="editCourse" [course]="course" (finishEditing)="cancelEditingHandler()"></app-edit-course>
 
 
 </div>
+
+
+
 

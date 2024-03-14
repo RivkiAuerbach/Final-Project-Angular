@@ -9,8 +9,9 @@ import { User } from '../models/user.model';
 })
 export class UsersService {
 
-
+   
 constructor(private _http:HttpClient){}
+
 //server
 getUserFromServer():Observable<User[]>
 {

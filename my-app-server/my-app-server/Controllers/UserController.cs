@@ -19,7 +19,8 @@ namespace my_app_server.Controllers
                Name="Israel Israeli",
                Address="Ben Eliezer",
                mail="Israel@gmail.com",
-               Password="1234"
+               Password="1234",
+               isInstructor=true
           },
            new User
           {
@@ -27,7 +28,8 @@ namespace my_app_server.Controllers
                Name="Roni Shachar",
                Address="Ben Gurion",
                mail="Roni@gmail.com",
-               Password="5678"
+               Password="5678",
+                isInstructor=false
           },
             new User
           {
@@ -35,7 +37,8 @@ namespace my_app_server.Controllers
                Name="Yael Choen",
                Address="Hapisga",
                mail="Yael@gmail.com",
-               Password="5798"
+               Password="5798",
+                isInstructor=false
           } };
         // GET: api/<user>
         [HttpGet]

@@ -3,6 +3,8 @@ import { Course,LearningMode } from '../../models/course.model';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '../../services/course.service';
+import { UsersService } from '../../services/user.service';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-course-details',
@@ -11,7 +13,7 @@ import { CourseService } from '../../services/course.service';
 })
 export class CourseDetailsComponent implements OnInit {
   id: number;
-  constructor(private courseService:CourseService) { }
+  constructor(private courseService:CourseService,private _userService: UsersService,private route: ActivatedRoute) { }
   @Input() 
   course: Course; 
   @Input()
@@ -19,6 +21,22 @@ export class CourseDetailsComponent implements OnInit {
   @Input()
   editCourse=false;
 
+
+  check(): Observable<boolean> {
+    const username = sessionStorage.getItem("username");
+    console.log(username);
+    return this._userService.getUserFromServer().pipe(
+      map(dataFromServer => {
+        for (const item of dataFromServer) {
+          if (item.name === username && item.isInstructor) {
+            return true;
+           
+          }
+        }
+       return false
+      })
+    );
+  }
     toggleCourseDetails(){
  
     this.showCourseDetails = !this.showCourseDetails; 
@@ -56,9 +74,7 @@ isZoomMode(learningMode: LearningMode): boolean {
   return learningMode === LearningMode.Zoom;
 }
   ngOnInit(): void {
-
+    
   }
 }
-
-
 
