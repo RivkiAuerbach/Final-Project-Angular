@@ -143,7 +143,7 @@ namespace my_app_server.Controllers
                 "Router"
                },
                LearningMode=LearningMode.Frontal,
-               InstructorCode="7894",
+               InstructorCode="1",
                Image="Angular.jpg"
           },
           new Course
@@ -161,7 +161,7 @@ namespace my_app_server.Controllers
                 "MOBX"
                },
                LearningMode=LearningMode.Zoom,
-               InstructorCode="7894",
+               InstructorCode="2",
                Image="React.jpg"
           },
            new Course
@@ -179,7 +179,7 @@ namespace my_app_server.Controllers
                 "Google Cloud"
                },
                LearningMode=LearningMode.Frontal,
-               InstructorCode="4586",
+               InstructorCode="3",
                Image="Innovation.jpg"
           }
 };

@@ -7,7 +7,7 @@
 
 </div>
 
-<div *ngIf="showCourseDetails && course" class="course-details-window">
+<div *ngIf="showCourseDetails && course &&navigateToCourseDetails()" class="course-details-window">
   <div *ngIf="!editCourse" class="course-details-content">
   <div class="course-details-content">
     <h2 class="title">{{ course.name }}</h2>

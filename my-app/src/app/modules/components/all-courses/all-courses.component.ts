@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Category } from '../../models/category.model';
 import { Course ,LearningMode} from '../../models/course.model';
 import { CourseService } from '../../services/course.service';
+import { UsersService } from '../../services/user.service';
+import { User } from '../../models/user.model';
 @Component({
   selector: 'app-all-courses',
   templateUrl: './all-courses.component.html',
@@ -11,6 +13,7 @@ import { CourseService } from '../../services/course.service';
 })
 @Injectable()
 export class AllCoursesComponent {
+
 @Input()
 selectedCourse:Course |undefined;
 searchText: string = "";
@@ -22,11 +25,20 @@ nameFilter: string = '';
 categoryFilter: string = '';
 learningModeFilter: string = '';
 selectedCategory: string = ''; // או כל ערך מתאים לסוג הנבחר
+users:User[];
+userName:string;
 
+constructor(private _userService:UsersService ,private _courseService:CourseService,private router: Router){
+  this.getCourses();
+  _userService.getUserFromServer().subscribe(data => {
+    this.users = data;
+  })
+}
 
 showCourse(selectedCourse:Course){
  this.selectedCourse=selectedCourse;
 }
+
 getCourses(){
   console.log("enter to get courses!");
    this._courseService. getCoursesFromServer().subscribe(
@@ -39,20 +51,29 @@ getCourses(){
     console.error('Error fetching courses: ' ,error);
   }
 );
-
 }
 
-constructor(private _courseService:CourseService,private router: Router){
-this.getCourses();
-}
-
-  navigateToCourseDetails(course: Course) {
-    // הניווט לדף פרטי הקורס עם השתמשות בכתובת המתאימה, לדוגמה:
-    this.router.navigate(['/courseDetails', course.code]);
-  }
 addCourseToList(){
-  this.router.navigate(['/addCourse']);
+  if(sessionStorage.getItem("username"))
+    {
+      //רק מרצה יכול להוסיף קורס
+      this.userName=sessionStorage.getItem("username");
+     if(this.users.find(user => user.name ===  this.userName&&user.isInstructor))
+       { 
+        this.router.navigate(['/addCourse']);
+       }
+     else
+       {
+         alert("Sorry, adding a course is only allowed for lecturers")
+       }
+
+    }
+    else
+    { 
+       this.router.navigate(['/login']);
+    }
 }
+
 handleSearch(event: Event) {
   // המתנה 300 מילי-שניות (0.3 שניות) לכל קלידה
   setTimeout(() => {

@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, numberAttribute } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersService } from '../../services/user.service';
 import { User } from '../../models/user.model';
@@ -15,6 +15,7 @@ export class LoginComponent {
   errorMessage: string = '';
   private users: User[] = [];
   showCourseInput: boolean = false;
+  userE:User;
 
   constructor(private _userService: UsersService, private router: Router) {
   
@@ -25,7 +26,7 @@ export class LoginComponent {
   }
 
   login() {
-    if (this.userExists(this.username)) {
+    if (this.hasSameUser(this.username,this.password)) {
       if (this.validatePassword(this.username, this.password)) {
         // Successful login - navigate to AllCoursesComponent
         this.router.navigate(['/allCourses']);
@@ -39,20 +40,18 @@ export class LoginComponent {
     }
   }
  
-  hasSameUser(user: User): boolean {
-   if(this.users.some(u => 
-      u.name === user.name && 
-      // u.address === user.address && 
-      // u.mail === user.mail && 
-      u.password === user.password
-    ))
-    {
-      sessionStorage.setItem('username',user.name);
-     sessionStorage.setItem('password',user.password);
-     return true;
+  hasSameUser(username: string, password: string): boolean {   
+    this.userE = this.users?.find(user => user.name === this.username&&user.password === this.password)
+     if(this.userE) {
+      sessionStorage.setItem('username',username);
+      sessionStorage.setItem('password',password);
+      sessionStorage.setItem('code',(this.userE.code).toString());
+      sessionStorage.setItem('isInstructor',(this.userE.isInstructor).toString());
+
+      return true;
     }
-    return false;
-  }
+     return false;
+   }
   // Method to check if a user already exists
   userExists(username: string): boolean {
     return this.users.some(u => u.name === username);

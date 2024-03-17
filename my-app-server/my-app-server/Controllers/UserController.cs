@@ -29,7 +29,7 @@ namespace my_app_server.Controllers
                Address="Ben Gurion",
                mail="Roni@gmail.com",
                Password="5678",
-                isInstructor=false
+               isInstructor=true
           },
             new User
           {

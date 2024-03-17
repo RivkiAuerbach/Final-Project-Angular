@@ -12,6 +12,9 @@ export class LogoutComponent {
   constructor(private router: Router) { 
     this.successMessage = 'User already exists.';
     sessionStorage.removeItem('username'); // מחיקת שם המשתמש מ- sessionStorage
+    sessionStorage.removeItem('password');
+    sessionStorage.removeItem('code');
+    sessionStorage.removeItem('isInstructor');
 
     // הפעלת setTimeout לאחר 2 שניות והניווט לדף הבית
     setTimeout(() => {

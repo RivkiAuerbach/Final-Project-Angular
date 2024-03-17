@@ -22,20 +22,13 @@ export class CourseDetailsComponent implements OnInit {
   editCourse=false;
 
 
-  check(): Observable<boolean> {
-    const username = sessionStorage.getItem("username");
-    console.log(username);
-    return this._userService.getUserFromServer().pipe(
-      map(dataFromServer => {
-        for (const item of dataFromServer) {
-          if (item.name === username && item.isInstructor) {
-            return true;
-           
-          }
-        }
-       return false
-      })
-    );
+  check(): boolean {
+    const userCode = sessionStorage.getItem("code");
+    const userBool= sessionStorage.getItem("isInstructor");
+    if(this.course.instructorCode==userCode&&userBool=="true")
+       return true;
+    else
+    return false;
   }
     toggleCourseDetails(){
  
@@ -65,6 +58,18 @@ handleFocus()
     this.OnFocusCourse.emit();
     this.focusCourse = true;
   }
+}
+
+navigateToCourseDetails():boolean {
+  //ניווט רק אם ביצע כניסה לאתר
+   if(sessionStorage.getItem("username"))
+     {
+      return true;  
+    }
+   else
+     { 
+       return false; 
+    }
 }
 isFrontalMode(learningMode: LearningMode): boolean {
   return learningMode === LearningMode.Frontal;
